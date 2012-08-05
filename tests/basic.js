@@ -13,11 +13,6 @@ var IRCServer = require('../index.js');
 var Server = new IRCServer();
 
 /**
- * Set teh message of the day.
- */
- Server.setConfig('motd', "This is the message of the DAY!! Woop, Wooop");
-
-/**
  * Set the server to listen
  */
 Server.listen(8080, function(){

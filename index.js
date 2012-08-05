@@ -28,9 +28,17 @@ var _Server	 = require('./lib/server.js');
 exports = module.exports = IRC;
 
 /**
- * Expose the version
+ * Read the package.json file into the exports
  */
-exports.version = '1.0.0';
+try
+{
+	exports.package = JSON.parse(_fs.readFileSync(__dirname + '/package.json'));
+}catch(e)
+{
+	console.log("Error: Unable to read package.json, missing or invalid")
+	console.log("Error: Please try re-install the package using npm install <nirc>");
+	process.exit();
+}
 
 /**
  * Create the IRC wrapper
@@ -63,6 +71,16 @@ function IRC()
 		this.config('env', process.env.NODE_ENV || 'development');
 
 		/**
+		 * Default hostname
+		 */
+		this.config('hostname', require("os").hostname());
+
+		/**
+		 * Set the server version
+		 */
+		this.config('version', exports.package.version);
+
+		/**
 		 * Set the Server options
 		 */
 		this.config('server.options', {});
@@ -71,9 +89,16 @@ function IRC()
 		 * Set the default MOTD
 		 */
 		this.config('motd', [
-			"Welcome to our server, we hope you enjoy using this NodeIRC Server",
-			"Feel free to contact the developers for support"
-		]);
+			"- Welcome to the opensource Nirc (Node-IRC) server, this server is currently running version @VERSION@",
+			"- ",
+			"- If you would like to start your own NodeJS IRC Server using Nirc, please visit one of the following links:",
+			"- http://github.com/rboertpitt/Nirc - -"
+		].join("\n"));
+
+		/**
+		 * Set teh default welcome message
+		 */
+		this.config('welcome_message', "Welcome to the {N} Internet Relay Chat Network, running Nirc-@VERSION@")
 	});
 
 	/**
