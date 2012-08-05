@@ -2,6 +2,12 @@
  * @copyright
  */
 
+ /**
+  * Resources being used:
+  * @link https://www.alien.net.au/irc/irc2numerics.html
+  * @link http://tools.ietf.org/html/rfc1459
+  */
+
 /**
  * Load core node dependancies
  */
